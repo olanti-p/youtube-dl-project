@@ -50,13 +50,13 @@ pub async fn run_task_download_and_convert(
         let stdout_reader = BufReader::new(stdout);
         let mut lines = AsyncByteLines::new(stdout_reader);
         while let Some(line_raw) = lines.next().await? {
-            stdout_file.write(line_raw).await?;
+            stdout_file.write_all(line_raw).await?;
             stdout_file.write_u8(b'\n').await?;
             let line = String::from_utf8_lossy(line_raw);
             if !line.starts_with("[dl]") {
                 continue;
             }
-            let parts: Vec<&str> = line.split(" ").collect();
+            let parts: Vec<&str> = line.split(' ').collect();
             assert_eq!(parts.len(), 4);
             assert_eq!(parts[0], "[dl]");
 

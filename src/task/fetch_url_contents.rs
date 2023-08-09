@@ -60,7 +60,7 @@ fn parse_single_video(data: Value) -> anyhow::Result<VideoInfo> {
     Ok(VideoInfo {
         url: video.original_url.clone(),
         title: video.title.clone(),
-        thumbnail: video.thumbnails.iter().nth(0).map(|x| x.url.to_string()),
+        thumbnail: video.thumbnails.get(0).map(|x| x.url.to_string()),
     })
 }
 
@@ -73,7 +73,7 @@ fn parse_playlist(data: Value) -> anyhow::Result<PlaylistInfo> {
             Ok(VideoInfo {
                 url: video.url.clone(),
                 title: video.title.clone(),
-                thumbnail: video.thumbnails.iter().nth(0).map(|x| x.url.to_string()),
+                thumbnail: video.thumbnails.get(0).map(|x| x.url.to_string()),
             })
         })
         .collect();

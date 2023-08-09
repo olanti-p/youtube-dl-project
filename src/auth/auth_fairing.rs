@@ -37,9 +37,7 @@ impl AuthFairing {
         Ok(api_token)
     }
 
-    fn validate_session_token_headers<'a>(
-        session_token_headers: Vec<&str>,
-    ) -> anyhow::Result<Uuid> {
+    fn validate_session_token_headers(session_token_headers: Vec<&str>) -> anyhow::Result<Uuid> {
         if session_token_headers.len() != 1 {
             return Err(anyhow!("Expected exactly 1 'session-token' header."));
         }
@@ -59,7 +57,7 @@ impl AuthFairing {
             .await
     }
 
-    async fn on_request_inner(&self, req: &mut Request<'_>) -> anyhow::Result<Option<User>> {
+    async fn on_request_inner(&self, req: &Request<'_>) -> anyhow::Result<Option<User>> {
         let api_token_hdr = Self::extract_api_token_headers(req);
         let session_token_hdr = Self::extract_session_token_headers(req);
         if !Self::authorization_provided(&api_token_hdr, &session_token_hdr) {

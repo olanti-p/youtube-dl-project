@@ -39,11 +39,7 @@ impl Job {
         // HACK: since we know there's only 1 FetchUrlContents task,
         //       and it's executed before all other tasks,
         //       we can short-circuit most cases here.
-        if let Some(fetch_task) = tasks
-            .iter()
-            .filter(|x| x.kind == TaskKind::FetchUrlContents)
-            .next()
-        {
+        if let Some(fetch_task) = tasks.iter().find(|x| x.kind == TaskKind::FetchUrlContents) {
             match fetch_task.status {
                 TaskStatus::Waiting => return JobStatus::Waiting,
                 TaskStatus::Processing => return JobStatus::Processing,
@@ -91,9 +87,7 @@ impl Job {
 
     fn finished_at_from_tasks(status: JobStatus, tasks: &[Task]) -> Option<DateTime<Utc>> {
         match status {
-            JobStatus::Waiting | JobStatus::Processing => {
-                return None;
-            }
+            JobStatus::Waiting | JobStatus::Processing => None,
             _ => tasks.iter().filter_map(|x| x.finished_at).max(),
         }
     }

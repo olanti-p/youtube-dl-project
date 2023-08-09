@@ -116,8 +116,8 @@ where
         let child_join_res = child.wait().await;
 
         // We expect Ok(Ok(())
-        let _ = stdout_join_res??;
-        let _ = stderr_join_res??;
+        stdout_join_res??;
+        stderr_join_res??;
 
         // We expect Ok(ExitStatus(...))
         Ok(child_join_res?)

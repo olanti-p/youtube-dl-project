@@ -6,11 +6,11 @@ use std::sync::Arc;
 use tokio::fs::File;
 use uuid::Uuid;
 
-const MAIN_FILE_NAME: &'static str = "main";
-const WORKER_DATA_DIR: &'static str = "data";
-const WORKER_LOG_DIR: &'static str = "log";
-const WORKER_STDOUT_FILE: &'static str = "stdout.log";
-const WORKER_STDERR_FILE: &'static str = "stderr.log";
+const MAIN_FILE_NAME: &str = "main";
+const WORKER_DATA_DIR: &str = "data";
+const WORKER_LOG_DIR: &str = "log";
+const WORKER_STDOUT_FILE: &str = "stdout.log";
+const WORKER_STDERR_FILE: &str = "stderr.log";
 
 #[derive(Debug)]
 pub struct FilesystemDriver {
@@ -25,7 +25,7 @@ impl FilesystemDriver {
     pub async fn init_directories(&self) -> anyhow::Result<()> {
         ensure_writable_dir_exists(&self.env.paths.worker_dir).await?;
         ensure_writable_dir_exists(&self.env.paths.output_dir).await?;
-        ensure_writable_dir_exists(&self.env.paths.database_file.parent().unwrap()).await?;
+        ensure_writable_dir_exists(self.env.paths.database_file.parent().unwrap()).await?;
         Ok(())
     }
 
@@ -159,7 +159,7 @@ pub async fn pick_free_file_name(original_path: &Path) -> PathBuf {
         }
         match tokio::fs::try_exists(&candidate).await {
             Ok(true) => {
-                i = i + 1;
+                i += 1;
             }
             _ => return candidate,
         }

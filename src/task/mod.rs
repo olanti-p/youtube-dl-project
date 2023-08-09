@@ -103,7 +103,7 @@ impl Task {
             thumbnail: video
                 .thumbnail
                 .as_ref()
-                .map_or_else(|| String::default(), |x| x.to_string()),
+                .map_or_else(String::default, |x| x.to_string()),
             owner_job_id,
             url: video.url.clone(),
             format,

@@ -177,7 +177,7 @@ impl JobManager {
 
         let new_tasks: Vec<Task> = content
             .videos()
-            .into_iter()
+            .iter()
             .map(|video| Task::new_from_video_info(job_id, video, format.clone()))
             .collect();
 

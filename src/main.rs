@@ -76,9 +76,7 @@ fn init_logging(env: &EnvironmentManager) {
             .init();
     } else if env.cli.log_none {
         // Write into /dev/null
-        tracing_subscriber::fmt()
-            .with_writer(|| std::io::sink())
-            .init();
+        tracing_subscriber::fmt().with_writer(std::io::sink).init();
     } else {
         tracing_subscriber::fmt::init();
     }

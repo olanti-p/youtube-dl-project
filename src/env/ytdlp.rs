@@ -34,7 +34,7 @@ impl YtdlpConfig {
 
     pub fn get_format(&self, format: &str) -> &DownloadFormat {
         self.try_get_format(format)
-            .expect(&format!("Unknown format: {format}"))
+            .unwrap_or_else(|| panic!("Unknown format: {format}"))
     }
 
     pub fn get_all_formats(&self) -> &[DownloadFormat] {
@@ -66,7 +66,7 @@ impl YtdlpConfig {
             .iter()
             .flat_map(|x| match x.as_str() {
                 "{{source_url}}" => vec![OsString::from(source_url.as_ref())],
-                "{{format_args}}" => format.args.iter().map(|x| OsString::from(x)).collect(),
+                "{{format_args}}" => format.args.iter().map(OsString::from).collect(),
                 "{{destination_file}}" => vec![OsString::from(destination_file.as_ref())],
                 x => vec![OsString::from(x)],
             })

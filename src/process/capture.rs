@@ -12,7 +12,7 @@ pub async fn read_output_to_log<T: AsyncRead + Unpin>(
     let stderr_reader = BufReader::new(output_channel);
     let mut lines = AsyncByteLines::new(stderr_reader);
     while let Some(line) = lines.next().await? {
-        log_file.write(line).await?;
+        log_file.write_all(line).await?;
         log_file.write_u8(b'\n').await?;
     }
     Ok(())
@@ -26,7 +26,7 @@ pub async fn read_output_to_buf_and_log<T: AsyncRead + Unpin>(
     let stderr_reader = BufReader::new(output_channel);
     let mut lines = AsyncByteLines::new(stderr_reader);
     while let Some(line) = lines.next().await? {
-        log_file.write(line).await?;
+        log_file.write_all(line).await?;
         log_file.write_u8(b'\n').await?;
         buf.extend_from_slice(line);
         buf.push(b'\n');

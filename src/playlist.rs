@@ -35,8 +35,8 @@ impl VideoOrPlaylist {
 
     pub fn thumbnail(&self) -> Option<&str> {
         match self {
-            VideoOrPlaylist::Video(v) => v.thumbnail.as_ref().map(|x| x.as_str()),
-            VideoOrPlaylist::Playlist(p) => p.thumbnail.as_ref().map(|x| x.as_str()),
+            VideoOrPlaylist::Video(v) => v.thumbnail.as_deref(),
+            VideoOrPlaylist::Playlist(p) => p.thumbnail.as_deref(),
         }
     }
 
