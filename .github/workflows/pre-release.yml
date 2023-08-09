@@ -14,6 +14,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - name: Check Inno Setup version
+      run: iscc.exe --version
     - name: Download Binary Dependencies
       run: python script/download_deps.py
     - name: Switch to nightly
