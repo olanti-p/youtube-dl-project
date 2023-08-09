@@ -16,8 +16,16 @@ jobs:
     - uses: actions/checkout@v3
     - name: Download Binary Dependencies
       run: python script/download_deps.py
+    - name: Switch to nightly
+      run: rustup default nightly
+    - name: Install daisyUI
+      run: npm i -D daisyui@latest
+    - name: Build release
+      run: cargo build --release
+    - name: Build CSS
+      run: npx tailwindcss -i ./webui_template/index.css -o ./webui/index.css
     - name: Build Installer
-      run: python script/make_win_installer.py
+      run: \"C:\Program Files (x86)\Inno Setup 6\ISCC.exe\" installer\windows\main.iss
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
