@@ -1,0 +1,28 @@
+name: Rust
+
+on:
+  push:
+    branches: [ "master" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  pre-release:
+    name: "Pre Release"
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Download Binary Dependencies
+      run: python script/download_deps.py
+    - name: Build Installer
+      run: python script/make_win_installer.py
+    - uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "Development Build"
+        files: |
+          target/innosetup/youtube-dl-server-setup.exe
