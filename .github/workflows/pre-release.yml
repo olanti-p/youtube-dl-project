@@ -10,6 +10,9 @@ env:
 
 jobs:
   pre-release:
+    permissions:
+      contents: write
+  
     name: "Pre Release"
     runs-on: windows-latest
 
