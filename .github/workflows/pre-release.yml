@@ -2,7 +2,8 @@ name: Rust
 
 on:
   push:
-    branches: [ "master" ]
+    tags:
+      - "v*.*.*"
 
 env:
   CARGO_TERM_COLOR: always
@@ -26,11 +27,8 @@ jobs:
       run: npx tailwindcss -i ./webui_template/index.css -o ./webui/index.css
     - name: Build Installer
       run: iscc.exe installer\windows\main.iss
-    - uses: "marvinpinto/action-automatic-releases@latest"
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: "latest"
-        prerelease: true
-        title: "Development Build"
-        files: |
-          target/innosetup/youtube-dl-server-setup.exe
+        files: target/innosetup/youtube-dl-server-setup.exe
