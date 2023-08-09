@@ -1,0 +1,47 @@
+# Advanced settings
+#
+# Fetch URL contents command
+command_fetch_url:
+  args:
+    - "--flat-playlist"
+    - "-J"
+    - "{{source_url}}"
+#
+# Download video from link command
+command_download:
+  args:
+    - "--quiet"
+    - "--no-playlist"
+    - "--progress"
+    - "--progress-template"
+    - "download:[dl] %(progress.elapsed)s %(progress.total_bytes_estimate)s %(progress.downloaded_bytes)s"
+    - "--newline"
+    - "{{format_args}}"
+    - "--embed-thumbnail"
+    - "--embed-metadata"
+    - "{{source_url}}"
+    - "-o"
+    - "{{destination_file}}"
+#
+# Download formats
+formats:
+  - id: mp3
+    display: MP3
+    ext: mp3
+    args: ["-x", "--audio-format", "mp3"]
+  - id: ogg
+    display: OGG
+    ext: ogg
+    args: [ "-x", "--audio-format", "vorbis" ]
+  - id: opus
+    display: OPUS
+    ext: opus
+    args: [ "-x", "--audio-format", "opus" ]
+  - id: mp4
+    display: MP4
+    ext: mp4
+    args: [ "--remux-video", "mp4" ]
+  - id: mkv
+    display: MKV
+    ext: mkv
+    args: [ "--remux-video", "mkv" ]

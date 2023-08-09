@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n                    UPDATE jobs\n                    SET title = ?2, thumbnail = ?3\n                    WHERE job_id = ?1\n                    ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 3
+    },
+    "nullable": []
+  },
+  "hash": "2d55dc542cc1f9ec378a209ffd5869017d82c9615aa5cebf749e09795618e904"
+}

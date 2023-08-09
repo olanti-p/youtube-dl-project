@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video Downloader</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="index.js"></script>
+</head>
+<body class="bg-slate-700 text-white p-2">
+    <form id="url-submit-form" class="flex w-3/4">
+        <label for="url-input-box" class="form-label">URL</label>
+        <input type="text" name="url" id="url-input-box" required class="form-text-input">
+        <input type="submit" value="Submit" class="submit-btn">
+        <select name="Formats" id="submit-format-select" class="submit-dropdown">
+            <option value="" id="format-select-template">...</option>
+        </select>
+    </form>
+    <div class="flex flex-row py-2 gap-2">
+        <div id="server-status-badge" class="badge-bg clickable-badge">
+            <div class="badge-label">Status </div><div class="badge-value" id="server-status-text">...</div>
+        </div>
+        <div id="toggle-updates-badge" class="badge-bg clickable-badge">
+            <div class="badge-label">Auto-update </div><div class="badge-value" id="auto-update-status">ON</div>
+        </div>
+        <div id="toggle-debug-badge" class="badge-bg clickable-badge">
+            <div class="badge-label">Debug mode</div><div class="badge-value" id="debug-status">ON</div>
+        </div>
+        <div id="open-login-badge" class="badge-bg clickable-badge">
+            <div class="badge-label">Login...</div>
+        </div>
+        <div id="edit-config-badge" class="badge-bg clickable-badge">
+            <div class="badge-label">Edit config...</div>
+        </div>
+        <div class="control-panel">
+            <button id="btn-cancel-all" class="control-btn control-cancel"><img src="img/cancel.svg" alt="Cancel All"/></button>
+            <button id="btn-pause-all" class="control-btn control-pause"><img src="img/pause.svg" alt="Pause All"/></button>
+            <button id="btn-resume-all" class="control-btn control-resume"><img src="img/resume.svg" alt="Resume All"/></button>
+            <button id="btn-retry-all" class="control-btn control-retry"><img src="img/retry.svg" alt="Retry All"/></button>
+            <button id="btn-delete-all" class="control-btn control-delete"><img src="img/delete.svg" alt="Delete All"/></button>
+        </div>
+        <div id="url-submit-msg" class="msg-hidden bg-green-600 msg-data">
+            MESSAGE GOES HERE
+        </div>
+    </div>
+    <div class="flex gap-2 debug-element">
+        <div class="badge-bg">
+            <div class="badge-label">Total </div><div class="badge-value" id="num-total">0</div>
+        </div>
+        <div class="badge-bg">
+            <div class="badge-label">Active </div><div class="badge-value" id="num-active">0</div>
+        </div>
+        <div class="badge-bg">
+            <div class="badge-label">Waiting </div><div class="badge-value" id="num-waiting">0</div>
+        </div>
+        <div class="badge-bg">
+            <div class="badge-label">Cancelled </div><div class="badge-value" id="num-cancelled">0</div>
+        </div>
+        <div class="badge-bg">
+            <div class="badge-label">Done </div><div class="badge-value" id="num-done">0</div>
+        </div>
+        <div class="badge-bg">
+            <div class="badge-label">Failed </div><div class="badge-value" id="num-failed">0</div>
+        </div>
+        <div id="shutdown-server-badge" class="badge-bg clickable-badge">
+            <div id="shutdown-server-badge-label" class="badge-label">Shutdown Server </div>
+        </div>
+    </div>
+    <form id="config-submit-form" class="flex flex-col w-3/4 hidden">
+        <div class="config-form-row">
+            <label for="config-input-download-dir" class="config-form-label">Download folder</label>
+            <input type="text" name="download-dir" id="config-input-download-dir" required class="form-text-input">
+        </div>
+        <div class="config-form-row">
+            <label for="config-input-temp-dir" class="config-form-label">Temporary folder</label>
+            <input type="text" name="temp-dir" id="config-input-temp-dir" required class="form-text-input">
+        </div>
+        <div class="config-form-row">
+            <label for="config-input-start-with-os" class="config-form-label">Start with OS</label>
+            <input type="text" name="start-with-os" id="config-input-start-with-os" class="form-text-input">
+        </div>
+        <div class="config-form-row">
+            <label for="config-input-show-announcements" class="config-form-label">Show announcements</label>
+            <input type="text" name="show-announcements" id="config-input-show-announcements" class="form-text-input">
+        </div>
+        <div class="config-form-row">
+            <label for="config-input-num-retries" class="config-form-label">Number of retries</label>
+            <input type="text" name="num-retries" id="config-input-num-retries" required class="form-text-input">
+        </div>
+        <div class="config-form-row">
+            <label for="config-input-num-workers" class="config-form-label">Number of workers</label>
+            <input type="text" name="num-workers" id="config-input-num-workers" required class="form-text-input">
+        </div>
+        <div class="config-form-row">
+            <label for="config-input-extra-args" class="config-form-label">Extra yt_dlp arguments</label>
+            <input type="text" name="extra-args" id="config-input-extra-args" required class="form-text-input">
+        </div>
+        <div class="config-form-row flex-row-reverse">
+            <input type="submit" value="Submit changes" class="submit-btn">
+        </div>
+    </form>
+    <div id="login-forms-container" class="hidden">
+        <form id="api-token-submit-form" class="flex w-3/4 pt-2">
+            <label for="api-token-input-box" class="form-label">API token</label>
+            <input type="text" name="api-token" id="api-token-input-box" required class="form-text-input">
+            <input type="submit" value="Login" class="submit-btn">
+        </form>
+        <form id="session-token-form" class="flex w-3/4 pt-2">
+            <label for="session-token-input-box" class="form-label">Session token</label>
+            <input type="text" name="session-token" id="session-token-input-box" required class="form-text-input">
+            <input type="submit" value="Update Session" class="submit-btn">
+        </form>
+    </div>
+    <div id="template-card" class="data-container task_job_card flex bg-gray-800 h-28 p-1 hidden">
+        <div class="left-section">
+            <button class="expand-collapse-btn control-collapse"><img src="img/expanded.svg" alt="Collapse"/></button>
+            <button class="expand-collapse-btn control-expand"><img src="img/collapsed.svg" alt="Expand"/></button>
+            <span class="left-section-label label-task-number">1</span>
+        </div>
+        <div class="thumbnail-section">
+            <!-- We use an arbitrary known-to-be-broken video id so YT would return us a missing thumbnail picture. -->
+            <img class="card-thumbnail" src="https://img.youtube.com/vi/0000/mqdefault.jpg" alt="Thumbnail">
+        </div>
+        <div class="yt-info-section">
+            <div class="yt-info-row text-xl font-bold">
+                <span class="yt-info-format">[...]</span>
+                <span class="yt-info-title">...</span>
+            </div>
+            <div class="yt-info-row">
+                <a class="yt-info-link" href="#">
+                    ...
+                </a>
+            </div>
+            <div class="yt-info-row yt-info-debug debug-element hidden">
+                <span class="text-red-800">[debug]</span>
+                <span class="yt-info-task-job-id">c824d160-abf5-4ca2-9ab8-a3ca797a7eb0</span>
+            </div>
+        </div>
+        <div class="flex-shrink-0 basis-1/6 bg-slate-600 p-1 flex flex-col justify-center content-center">
+            <div class="content-center justify-center flex">
+                <div class="card-status-badge">
+                    <span class="card-status-text">...</span>
+                </div>
+            </div>
+            <div class="text-center">
+                <span class="text-gray-300 text-progress">...</span>
+            </div>
+            <div class="text-center">
+                <span class="text-gray-300 text-elapsed-time">...</span>
+            </div>
+        </div>
+        <div class="control-panel flex-shrink-0 w-32 bg-slate-700 flex p-1 flex-wrap content-center justify-center gap-1">
+            <button class="control-btn control-cancel"><img src="img/cancel.svg" alt="Cancel"/></button>
+            <button class="control-btn control-pause"><img src="img/pause.svg" alt="Pause"/></button>
+            <button class="control-btn control-resume"><img src="img/resume.svg" alt="Resume"/></button>
+            <button class="control-btn control-retry"><img src="img/retry.svg" alt="retry"/></button>
+            <button class="control-btn control-delete"><img src="img/delete.svg" alt="Delete"/></button>
+            <button class="control-btn control-stdout hidden"><img src="img/info.svg" alt="Info log"/></button>
+            <button class="control-btn control-stderr hidden"><img src="img/warning.svg" alt="Error log"/></button>
+        </div>
+    </div>
+    <!-- Card container contains 1 job card and 1 card-task-container -->
+    <div id="card-container" class="card-container hidden"></div>
+    <!-- Card task container contains 0 or more task cards -->
+    <div id="card-task-container" class="card-task-container hidden"></div>
+    <div id="new-display-container"></div>
+    </table>
+</body>
+</html>

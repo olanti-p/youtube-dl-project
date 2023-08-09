@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n            DELETE FROM jobs\n            WHERE 0 = (\n                SELECT Count(*) FROM tasks WHERE tasks.owner_job_id = jobs.job_id\n            )\n            ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 0
+    },
+    "nullable": []
+  },
+  "hash": "6f0f6f18df239f6d54a7a4c4515e267dbcf5b2092739673906dc4caa0634475c"
+}

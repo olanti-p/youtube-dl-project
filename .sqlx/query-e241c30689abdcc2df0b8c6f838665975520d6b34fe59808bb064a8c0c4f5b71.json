@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n                    UPDATE tasks\n                    SET status = ?2, finished_at = ?3, pending_cleanup = (CASE WHEN ?2 = ?4 THEN true ELSE pending_cleanup END)\n                    WHERE task_id = ?1\n                    ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 4
+    },
+    "nullable": []
+  },
+  "hash": "e241c30689abdcc2df0b8c6f838665975520d6b34fe59808bb064a8c0c4f5b71"
+}

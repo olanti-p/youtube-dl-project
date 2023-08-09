@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.form-label {
+    @apply bg-slate-500 px-2 py-1;
+}
+
+.form-text-input {
+    @apply bg-slate-600 px-2 py-1 grow outline-none;
+}
+
+.config-form-label {
+    @apply form-label w-1/4 whitespace-nowrap;
+}
+
+.config-form-row {
+    @apply flex py-1 flex-nowrap;
+}
+
+.submit-btn {
+    @apply rounded-none px-2 py-1 bg-slate-500 hover:bg-slate-400 active:bg-slate-500;
+    cursor: pointer;
+}
+
+.submit-dropdown {
+    @apply bg-slate-600 px-2 py-1 outline-none;
+    cursor: pointer;
+}
+
+.badge-bg {
+    @apply flex p-1 bg-slate-600;
+}
+
+.badge-label {
+    @apply px-2;
+}
+
+.badge-value {
+    @apply bg-slate-500 px-1;
+}
+
+.msg-data {
+    @apply flex p-1;
+}
+
+.msg-hidden {
+    @apply hidden;
+}
+
+.status-done {
+    @apply bg-green-900 border-green-500;
+}
+
+.status-partially-done {
+    background-color: rgb(83, 110, 8);
+    border-color: rgb(154, 215, 0);
+}
+
+.status-failed {
+    @apply bg-red-900 border-red-500;
+}
+
+.status-cancelled {
+    @apply bg-gray-600 border-zinc-300;
+}
+
+.status-processing {
+    @apply bg-yellow-700 border-yellow-400;
+}
+
+.status-waiting {
+    @apply bg-blue-900 border-blue-500;
+}
+
+.control-btn {
+    @apply rounded-none p-1 bg-slate-500 hover:bg-slate-400 active:bg-slate-500;
+}
+
+.expand-collapse-btn {
+    @apply rounded-none p-0 bg-slate-700 hover:bg-slate-600 active:bg-slate-700;
+}
+
+.expand-collapse-btn > img {
+    @apply w-8 h-8;
+}
+
+.left-section {
+    @apply flex-shrink-0 bg-slate-700 content-center flex p-0;
+}
+
+.left-section-job-collapsed {
+    @apply w-8;
+}
+
+.left-section-job-collapsed > .control-collapse {
+    @apply hidden;
+}
+
+.left-section-job-collapsed > .left-section-label {
+    @apply hidden;
+}
+
+.left-section-job-expanded {
+    @apply w-8;
+}
+
+.left-section-job-expanded > .control-expand {
+    @apply hidden;
+}
+
+.left-section-job-expanded > .left-section-label {
+    @apply hidden;
+}
+
+.left-section-task {
+    @apply w-16;
+}
+
+.left-section-task > .control-expand {
+    @apply hidden;
+}
+
+.left-section-task > .control-collapse {
+    @apply hidden;
+}
+
+.left-section-label {
+    @apply m-auto text-xl text-gray-400;
+}
+
+.thumbnail-section {
+    @apply flex-shrink-0 w-36 flex content-center p-0;
+}
+
+.card-thumbnail {
+    @apply w-full h-full;
+}
+
+.yt-info-section {
+    @apply flex-grow bg-slate-700 p-2 min-w-0 whitespace-nowrap;
+}
+
+.yt-info-row {
+    @apply overflow-ellipsis overflow-hidden;
+}
+
+.yt-info-format {
+    @apply text-cyan-300;
+}
+
+.yt-info-title {
+    @apply text-white;
+}
+
+.yt-info-link {
+    @apply text-blue-200 hover:text-blue-500 hover:underline;
+}
+
+.yt-info-task-job-id {
+    @apply text-gray-300;
+}
+
+.card-status-badge {
+    @apply rounded-xl border-2 px-2;
+}
+
+.control-btn > img {
+    @apply w-5 h-5;
+}
+
+.control-btn-disabled {
+    @apply bg-zinc-700 hover:bg-zinc-700 active:bg-zinc-700;
+}
+
+.clickable-badge {
+    @apply bg-slate-600 hover:bg-slate-500 active:bg-slate-600;
+    user-select: none;
+    cursor: pointer;
+}
+
+.clickable-badge > .badge-value {
+    @apply bg-slate-500;
+    cursor: pointer;
+}
+
+.clickable-badge:hover > .badge-value {
+    @apply bg-slate-400;
+    cursor: pointer;
+}
+
+.clickable-badge:active > .badge-value {
+    @apply bg-slate-500;
+    cursor: pointer;
+}
+
+#shutdown-server-badge {
+    @apply hover:bg-red-600 active:bg-red-700;
+}
+
+#shutdown-server-badge.disabled {
+    @apply bg-red-800 hover:bg-red-800 active:bg-red-800;
+}
+

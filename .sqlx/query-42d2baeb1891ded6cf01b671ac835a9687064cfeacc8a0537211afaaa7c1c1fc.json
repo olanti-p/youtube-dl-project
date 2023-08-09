@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n                    UPDATE tasks\n                    SET pending_delete = true, pending_cleanup = true\n                    WHERE task_id = ?1\n                    ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": []
+  },
+  "hash": "42d2baeb1891ded6cf01b671ac835a9687064cfeacc8a0537211afaaa7c1c1fc"
+}

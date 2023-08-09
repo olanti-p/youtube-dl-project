@@ -1,0 +1,11 @@
+[Unit]
+Description=Youtube-DL Server. Downloads YouTube videos from submitted URLs.
+After=network.target
+
+[Service]
+TimeoutSec=5
+ExecStart={{binary_path}} {{logging_scheme}} --workdir {{workdir_path}} run
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

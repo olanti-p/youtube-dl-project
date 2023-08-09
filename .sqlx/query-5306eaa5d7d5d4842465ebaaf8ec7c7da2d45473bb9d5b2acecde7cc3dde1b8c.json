@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "\n                    UPDATE tasks\n                    SET status = ?2\n                    WHERE task_id = ?1 AND (status = ?3 OR status = ?4)\n                    ",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 4
+    },
+    "nullable": []
+  },
+  "hash": "5306eaa5d7d5d4842465ebaaf8ec7c7da2d45473bb9d5b2acecde7cc3dde1b8c"
+}

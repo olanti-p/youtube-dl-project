@@ -1,0 +1,12 @@
+/download
+/target
+/node_modules
+/webui/index.css
+/server.json
+/temp/
+/debug/
+/.idea
+/bin
+/AtomicParsley.exe
+/phantomjs.exe
+/yt-dlp.exe

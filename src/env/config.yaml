@@ -1,0 +1,12 @@
+# Default config
+#
+# These 2 values are overwritten
+download_folder: .
+temp_folder: .
+#
+# Sensible defaults here
+start_with_os: true
+show_announcements: true
+num_automatic_retries: 3
+timeout_before_retry: 15
+num_download_workers: 4
