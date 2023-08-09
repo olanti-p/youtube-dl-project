@@ -14,8 +14,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Check Inno Setup version
-      run: iscc.exe --version
     - name: Download Binary Dependencies
       run: python script/download_deps.py
     - name: Switch to nightly
@@ -27,7 +25,7 @@ jobs:
     - name: Build CSS
       run: npx tailwindcss -i ./webui_template/index.css -o ./webui/index.css
     - name: Build Installer
-      run: \"C:\Program Files (x86)\Inno Setup 6\ISCC.exe\" installer\windows\main.iss
+      run: iscc.exe installer\windows\main.iss
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
